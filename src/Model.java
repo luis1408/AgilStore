@@ -6,13 +6,22 @@ public class Model {
     private String nome;
     private String categoria;
     private int quantidade;
-    private int preco;
+    private double preco;
 
-    public Model(String nome, String categoria,  int quantidade, int preco) {
+    public Model(UUID id, String nome, String categoria,  int quantidade, double preco) {
+        this.id = id;
         this.nome = nome;
         this.categoria = categoria;
         this.quantidade = quantidade;
         this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "ID: %s\nNome: %s\nCategoria: %s\nQuantidade: %d\nPreço: %.2f",
+            id, nome, categoria, quantidade, preco
+        );
     }
 
     public void setCategoria(String categoria) {
@@ -39,11 +48,11 @@ public class Model {
         return nome;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 

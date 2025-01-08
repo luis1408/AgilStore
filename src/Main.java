@@ -5,8 +5,9 @@ public class Main implements Interface{
     public static void main(String[] args) {
         Controller controller = new Controller();
         ArrayList<Model> listaProduto = new ArrayList<>();
+        boolean continuar = true;
 
-        while (true) {
+        while (continuar) {
             System.out.println("Menu de Operações:");
             System.out.println("1. Adicionar");
             System.out.println("2. Listar");
@@ -36,7 +37,8 @@ public class Main implements Interface{
                     break;
                 case 0:
                     System.out.println("Fechando do aplicação...");
-                    return;
+                    continuar = false;
+                    break;
                 default:
                     System.out.println("Opção inválida!");
             }

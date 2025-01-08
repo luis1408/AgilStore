@@ -7,18 +7,19 @@ public class Controller implements Interface{
     
     public ArrayList<Model> adicionar(ArrayList<Model> listaProduto) {
        
+        UUID id = UUID.randomUUID();
         System.out.println("Digite o nome do produto:");
-        String nome = scanner.nextLine();
+        String nome = scanner.next();
         System.out.println("Digite a categoria do produto:");
-        String categoria = scanner.nextLine();
+        String categoria = scanner.next();
         System.out.println("Digite a quantidade do produto:");
         int quantidade = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Digite o preço do produto:");
-        int preco = scanner.nextInt();
+        double preco = scanner.nextDouble();
         scanner.nextLine();
 
-        Model novoProduto = new Model(nome, categoria,  quantidade, preco);
+        Model novoProduto = new Model(id, nome, categoria,  quantidade, preco);
         listaProduto.add(novoProduto);
         System.out.println("Produto adicionado: " + novoProduto);
         return listaProduto;
@@ -26,7 +27,7 @@ public class Controller implements Interface{
 
     public ArrayList<Model> atualizar(ArrayList<Model> listaProduto) {
         System.out.println("Digite o ID do produto que deseja atualizar:");
-        String idInput = scanner.nextLine();
+        String idInput = scanner.next();
 
         try {
             UUID id = UUID.fromString(idInput);
@@ -50,7 +51,7 @@ public class Controller implements Interface{
                         switch (opcao) {
                             case 1:
                                 System.out.println("Digite o novo nome:");
-                                String novoNome = scanner.nextLine();
+                                String novoNome = scanner.next();
                                 if (!novoNome.isBlank()) {
                                     produto.setNome(novoNome);
                                     System.out.println("Nome atualizado com sucesso.");
@@ -61,7 +62,7 @@ public class Controller implements Interface{
 
                             case 2:
                                 System.out.println("Digite a nova categoria:");
-                                String novaCategoria = scanner.nextLine();
+                                String novaCategoria = scanner.next();
                                 if (!novaCategoria.isBlank()) {
                                     produto.setCategoria(novaCategoria);
                                     System.out.println("Categoria atualizada com sucesso.");
@@ -83,7 +84,7 @@ public class Controller implements Interface{
 
                             case 4:
                                 System.out.println("Digite o novo preço:");
-                                int novoPreco = scanner.nextInt();
+                                double novoPreco = scanner.nextDouble();
                                 if (novoPreco >= 0) {
                                     produto.setPreco(novoPreco);
                                     System.out.println("Preço atualizado com sucesso.");
@@ -121,12 +122,11 @@ public class Controller implements Interface{
         System.out.println("1. Por ID");
         System.out.println("2. Por Nome");
         int opcao = scanner.nextInt();
-        scanner.nextLine(); 
 
         switch (opcao) {
             case 1: 
                 System.out.println("Digite o ID do produto:");
-                String idInput = scanner.nextLine();
+                String idInput = scanner.next();
 
                 try {
                     UUID id = UUID.fromString(idInput);
@@ -149,9 +149,9 @@ public class Controller implements Interface{
                 }
                 break;
 
-            case 2: // Busca por Nome
+            case 2:
                 System.out.println("Digite parte do nome do produto:");
-                String nomeInput = scanner.nextLine().toLowerCase();
+                String nomeInput = scanner.next().toLowerCase();
                 boolean encontradoNome = false;
 
                 for (Model produto : listaProduto) {
@@ -176,7 +176,7 @@ public class Controller implements Interface{
 
     public ArrayList<Model> remover(ArrayList<Model> listaProduto) {
         System.out.println("Digite o ID do produto que deseja remover:");
-        String idInput = scanner.nextLine();
+        String idInput = scanner.next();
 
         try {
             UUID id = UUID.fromString(idInput);
@@ -184,7 +184,7 @@ public class Controller implements Interface{
             for (Model produto : listaProduto) {
                 if (produto.getId().equals(id)) {
                     System.out.println("Tem certeza que deseja remover " + produto + "de seu catálogo? (responda com sim ou não)");
-                    String simOuNao = scanner.nextLine();
+                    String simOuNao = scanner.next();
                     if (simOuNao.equalsIgnoreCase("sim")) {
                         listaProduto.remove(produto);
                         System.out.println("Produto removido com sucesso.");
@@ -249,7 +249,6 @@ public class Controller implements Interface{
         if (produtosFiltrados.isEmpty()) {
             System.out.println("Nenhum produto encontrado para os critérios selecionados.");
         } else {
-            // Exibe tabela de produtos
             System.out.printf("%-36s %-20s %-15s %-10s %-10s%n", 
                 "ID", "Nome do Produto", "Categoria", "Quantidade", "Preço");
             System.out.println("=".repeat(95));
